@@ -1,31 +1,18 @@
 
-Inductive nat : Type := 
-  | O : nat
-  | S : nat -> nat.
+Require Import Unicode.Utf8.
 
-Fixpoint plus (a b : nat) : nat :=
-  match a with
-    | O => b
-    | S a' => S (plus a' b)
-  end.
-
-Lemma AdditiveIdentity (a : nat) : plus a O = a.
+Goal forall A B C : Prop, A \/ B /\ C -> (A \/ B) /\ (A \/ C).
 Proof.
-  induction a.
-  - reflexivity.
-  - simpl. rewrite IHa. reflexivity.
+  intros.
+  split.
+  - destruct H. left. assumption. right. destruct H. assumption.
+  - destruct H. left. assumption. right. destruct H. assumption.
 Qed.
 
-Lemma AdditiveSuccessor (a b : nat) : plus a (S b) = S (plus a b).
+Goal forall A B : Prop, (forall C : Prop, (A -> B -> C) -> C) -> A.
 Proof.
-  induction a.
-  - simpl. reflexivity.
-  - simpl. rewrite IHa. reflexivity.
-Qed.
-
-Lemma AdditiveCommutativity (a b : nat) : plus a b = plus b a.
-Proof.
-  induction a.
-  - simpl. rewrite AdditiveIdentity. reflexivity.
-  - simpl. rewrite IHa. rewrite AdditiveSuccessor. reflexivity.
+  intros.
+  apply H.
+  intros.
+  assumption.
 Qed.
