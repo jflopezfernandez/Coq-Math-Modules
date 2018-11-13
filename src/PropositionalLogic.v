@@ -133,7 +133,46 @@ Proof.
   assumption.
 Qed.
 
+Theorem DeMorgansLaw : (forall P Q : Prop, P -> ~(~P /\ ~Q) -> P \/ Q).
+Proof.
+  intro P.
+  intro Q.
+  intro p.
+  intro R.
 
+  left.
+  - assumption.
+Qed.
 
+Theorem ExistentialImplication : forall (A : Type)(P Q : A -> Prop), (ex P)->(forall x : A, P x -> Q x) -> (ex Q).
+Proof.
+  intro A.
+  intro P.
+  intro Q.
+  
+  intro H1.
+  intro H2.
+  
+  elim H1.
+  
+  intro a.
+  intro Ha.
+  
+  exists a.
+  
+  apply H2.
+  exact Ha.
+Qed.
 
+Theorem EqualitySymmetry : (forall (A : Type)(a b : A), a = b -> b = a).
+Proof.
+  intro A.
+  intro a.
+  intro b.
+  intro e.
+  
+  rewrite e.
+  
+  reflexivity.
+Qed.
 
