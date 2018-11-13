@@ -1,18 +1,12 @@
 
 Require Import Unicode.Utf8.
+Require Import ZArith.
 
-Goal forall A B C : Prop, A \/ B /\ C -> (A \/ B) /\ (A \/ C).
-Proof.
-  intros.
-  split.
-  - destruct H. left. assumption. right. destruct H. assumption.
-  - destruct H. left. assumption. right. destruct H. assumption.
-Qed.
+Open Scope Z_scope.
 
-Goal forall A B : Prop, (forall C : Prop, (A -> B -> C) -> C) -> A.
-Proof.
-  intros.
-  apply H.
-  intros.
-  assumption.
-Qed.
+Parameter MaximumInt : Z.
+
+Definition MinimumInt := 1 - MaximumInt.
+
+Print MinimumInt.
+
