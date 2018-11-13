@@ -257,3 +257,26 @@ Variables (P1 P2 P3 : Prop).
 Check (ImplicationIsDistributive P1 P2 P3).
 
 *)
+
+Theorem Exercise5P5 : (forall A B C D : Set, A = C \/ B = C \/ C = C \/ D = C).
+Proof.
+  intro A.
+  intro B.
+  intro C.
+  intro D.
+  right.
+  right.
+  left.
+  reflexivity.
+Qed.
+
+
+Theorem ModusTollens : (forall P Q : Prop, (P -> Q) -> ~Q -> ~P).
+Proof.
+  intro P.
+  intro Q.
+  intro H.
+  unfold not.
+  apply (ImplicationTransitivity).
+  exact (H).
+Qed.
