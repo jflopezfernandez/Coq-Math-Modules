@@ -10,12 +10,14 @@ Proof.
   exact (H p).
 Qed.
 
-(*
 Theorem DoubleNegation : (forall P : Prop, P -> ~~P).
 Proof.
   intro P.
   intro p.
-*)
+  unfold not.
+  intro notP.
+  exact (notP p).
+Qed.
 
 Theorem ImplicationTransitivity : (forall P Q R : Prop, (P -> Q) -> (Q -> R) -> P -> R).
 Proof.
