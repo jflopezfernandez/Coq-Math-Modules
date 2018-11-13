@@ -52,7 +52,7 @@ Proof.
   intro Q.
   intro H.
   unfold not.
-  apply ImplicationTransitivity.
+  apply ImplicationsAreTransitive.
   assumption.
 Qed.
 
