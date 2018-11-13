@@ -1,31 +1,25 @@
 
-Inductive nat : Type := 
-  | O : nat
-  | S : nat -> nat.
+Require Import Unicode.Utf8.
 
-Fixpoint plus (a b : nat) : nat :=
-  match a with
-    | O => b
-    | S a' => S (plus a' b)
-  end.
+Open Scope nat_scope.
 
-Lemma AdditiveIdentity (a : nat) : plus a O = a.
+Theorem NAdditionAssociative : (forall x y z : nat, (x + y) + z = x + (y + z)).
 Proof.
-  induction a.
-  - reflexivity.
-  - simpl. rewrite IHa. reflexivity.
-Qed.
-
-Lemma AdditiveSuccessor (a b : nat) : plus a (S b) = S (plus a b).
-Proof.
-  induction a.
-  - simpl. reflexivity.
-  - simpl. rewrite IHa. reflexivity.
-Qed.
-
-Lemma AdditiveCommutativity (a b : nat) : plus a b = plus b a.
-Proof.
-  induction a.
-  - simpl. rewrite AdditiveIdentity. reflexivity.
-  - simpl. rewrite IHa. rewrite AdditiveSuccessor. reflexivity.
+  intro x.
+  intro y.
+  intro z.
+  
+  induction x.
+  
+  rewrite plus_O_n.
+  rewrite plus_O_n.
+  
+  reflexivity.
+  
+  rewrite (plus_Sn_m x y).
+  rewrite (plus_Sn_m (x + y) z).
+  rewrite (plus_Sn_m).
+  rewrite IHx.
+  
+  reflexivity.
 Qed.
