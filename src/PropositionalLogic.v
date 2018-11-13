@@ -1,38 +1,50 @@
 
-(* Modus Ponens
- * 
- * P -> Q : If the lamp is broken, then the room is dark.
- * P      : The lamp is broken.
- * Q      : The room is dark.
- *
- *)
+Require Import Unicode.Utf8.
 
-Section Definitions.
-
-Definition Implication : (forall P Q : Prop, (P -> Q) -> P -> Q).
+Theorem ModusPonens : (forall P Q : Prop, P -> (P -> Q) -> Q).
 Proof.
-  intros.
-  apply H.
-  apply H0.
+  intro P.
+  intro Q.
+  intro p.
+  intro H.
+  exact (H p).
 Qed.
 
-Definition Contrapositive : (forall P Q : Prop, (P -> Q) -> P -> Q -> (~Q -> ~P)).
+(*
+Theorem DoubleNegation : (forall P : Prop, P -> ~~P).
 Proof.
-  intros.
-  intuition.
+  intro P.
+  intro p.
+*)
+
+Theorem ImplicationTransitivity : (forall P Q R : Prop, (P -> Q) -> (Q -> R) -> P -> R).
+Proof.
+  intro P.
+  intro Q.
+  intro R.
+  intro H1.
+  intro H2.
+  intro p.
+  apply H2.
+  exact (H1 p).
 Qed.
 
-Section Lemmas.
-
-Lemma ModusPonens : (forall P Q : Prop, (P -> Q) -> P -> Q).
+Theorem Absurd : (forall P Q : Prop, P -> ~P -> Q).
 Proof.
-  intros.
-  apply H.
-  apply H0.
+  intro P.
+  intro Q.
+  intro p.
+  intro H.
+  elim H.
+  assumption.
 Qed.
 
-Lemma ModusTollens : (forall P Q : Prop, (P -> Q) -> ~Q -> ~P).
+Theorem Contrapositive : (forall A B : Prop, (A -> B) -> ~B -> ~A).
 Proof.
-  intros.
-  auto.
+  intro A.
+  intro B.
+  intro H1.
+  unfold not.
+  apply ImplicationTransitivity.
+  apply H1.
 Qed.
